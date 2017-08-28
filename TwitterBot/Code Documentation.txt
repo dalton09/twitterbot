@@ -1,0 +1,46 @@
+#Creator - Dalton De Souza
+
+Right at the top of the file is eveything that needs to be imported from other
+files for the bot to run correctly
+
+The next part is the authentication and the api keys. These keys are unique to
+every account. If you want to generate your own keys, then you will have to
+do the same on the twitter developers page.
+
+myBot is the name of the owner's account object. In this case the owner is @DaltonBoltTest
+bolt contains the user object of @boltiot
+
+We start by printing the owner's username(screen name) and the number of followers the account
+has. This is done by using the myBot object.
+
+We then loop through the followers of the account and display their screen names.
+exceptions are handled in the try: block
+
+Similarly we loop through all the accounts the owner is following and display them.
+
+The next part of the code involves searching for tweets containing "#IoT". This
+will loop through the latest comments with the search phrase and will "favourite" the
+tweet if it hasn't already been done.
+
+I have limited the number of tweets to be searched to 40 with a 6 second interval between them
+This is to avoid any potential violations of Twitter's terms of use policy.
+
+class listener is a stream listener. It monitor's the target's twitter feed for new tweets.
+The target account has been set using this line of code
+	-> streaming_api.filter(follow=['458269836'])
+
+The number here is the account id of the twitter user. In this case, the acccount id of
+@boltiot. This id is fetched in the line
+	-> handle = bolt.id;
+
+
+
+As Twitter only allows for 1 stream per instance, I have used the stream to monitor the
+Twitter feed of @boltiot.Every time a new tweet is posted while the bot is running, it will
+automatically "favourite" that tweet.
+
+Assumptions made:
+1) Limited the amount of "favourite" on tweets containing #IoT to 40. These 40 will be liked only
+   when the bot is started.
+
+2) Not Considering tweets from @boltiot that were sent out while the bot was turned off.
